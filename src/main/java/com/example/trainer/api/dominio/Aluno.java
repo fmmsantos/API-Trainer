@@ -1,5 +1,6 @@
 package com.example.trainer.api.dominio;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Embedded;
@@ -15,6 +16,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 
 @Entity
@@ -26,10 +29,19 @@ public class Aluno {
 	@NotNull
 	@Size(min = 3,max = 20)
 	private String nome;
-	@Temporal(TemporalType.DATE )
-	private Date dataNascimento;
+	@JsonFormat(pattern =  "dd/MM/yyyy")
+	private LocalDate dataNascimento;
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
+	private boolean ativo;
+	
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 	@Embedded
 	private Endereco endereco;
 
@@ -37,6 +49,7 @@ public class Aluno {
 		this.endereco = endereco;
 	}
 	public Endereco getEndereco() {
+		
 		return endereco;
 	}
 	public Long getCodigo() {
@@ -51,17 +64,27 @@ public class Aluno {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Date getDataNascimento() {
+	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(LocalDate dataNascimento) {
+		
+		
 		this.dataNascimento = dataNascimento;
 	}
 	public Sexo getSexo() {
+		
 		return sexo;
 	}
 	public void setSexo(Sexo sexo) {
+		if(this.sexo == sexo.FEMININO)	{
+			sexo.valueOf("F");
+		}
+		if(this.sexo == sexo.MASCULINO) {
+			sexo.valueOf("M");
+		}
 		this.sexo = sexo;
+		
 	}
 	@Override
 	public int hashCode() {

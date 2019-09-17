@@ -9,19 +9,32 @@ public enum Sexo {
 	
 	private String sexo ;
 	
+	
+	
+	
+	
 	 Sexo(String sexo) {
 		 this.sexo = sexo;
 		
 	}
+	 
+	
+	 
+
+	
 
 	public String getSexo() {
+		
 		return sexo;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return sexo;
+	public static Sexo sexo(String id) {
+		try{
+			return Sexo.valueOf(id);
+		}	catch (IllegalArgumentException e) {
+	            throw new RuntimeException("Invalid value for my enum blah blah: " + id);
+		
+		}
 	}
 
 }

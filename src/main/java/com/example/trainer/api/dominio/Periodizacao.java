@@ -6,12 +6,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Periodizacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long codigo;
 	private int nivel;
 	private int numeroExercicios;
 	private int serie;
@@ -28,12 +31,22 @@ public class Periodizacao {
 	private Sistema sistema;
 	@Enumerated(EnumType.STRING)
 	private Divisao divisao;
+	@ManyToOne
+	@JoinColumn(name = "codigo_aluno")
+	private Aluno aluno;
 	
-	public Long getId() {
-		return id;
+	
+	public Long getCodigo() {
+		return codigo;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+	public Aluno getAluno() {
+		return aluno;
+	}
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
 	}
 	public int getNivel() {
 		return nivel;
@@ -117,7 +130,7 @@ public class Periodizacao {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
 	@Override
@@ -129,13 +142,14 @@ public class Periodizacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Periodizacao other = (Periodizacao) obj;
-		if (id == null) {
-			if (other.id != null)
+		if (codigo == null) {
+			if (other.codigo != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
 	}
+	
 	
 	
 	

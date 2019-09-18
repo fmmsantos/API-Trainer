@@ -3,6 +3,7 @@ package com.example.trainer.api.dominio;
 import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Aluno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo_aluno")
 	private Long codigo;
 	@NotNull
 	@Size(min = 3,max = 20)

@@ -1,5 +1,6 @@
 package com.example.trainer.api.dominio;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,30 +10,57 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Periodizacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
+	@Column(nullable = false)
 	private int nivel;
+	
+	@Column(nullable = false)
 	private int numeroExercicios;
+	
+	@Column(nullable = false)
 	private int serie;
+	
+	@Column(nullable = false)
 	private int repeticao;
+	
+	@Column(nullable = false)
 	private int intervalo;
-	private String velocidadeExecução;
-	private int frequenciaSemanal;
+	
+	@Enumerated(EnumType.STRING)
+	private Velocidade velocidadeExecucao;
+	
+	@Column(nullable = false)
+    private int frequenciaSemanal;
+	
+	@Column(nullable = false)
 	private int numeroDeTreino;
+	
+	@Column(nullable = false)
 	private int quantidadeDeSemana;
-	private int seriesTotais;
+	
+	@Column(nullable = false)
+    private int seriesTotais;
+	
 	@Enumerated(EnumType.STRING)
 	private Metodo metodo;
+	
 	@Enumerated(EnumType.STRING)
 	private Sistema sistema;
+	
 	@Enumerated(EnumType.STRING)
 	private Divisao divisao;
+	
 	@ManyToOne
-	@JoinColumn(name = "codigo_aluno")
+	@JoinColumn(name = "codigo_aluno",nullable = false)
 	private Aluno aluno;
 	
 	
@@ -78,11 +106,13 @@ public class Periodizacao {
 	public void setIntervalo(int intervalo) {
 		this.intervalo = intervalo;
 	}
-	public String getVelocidadeExecução() {
-		return velocidadeExecução;
+	
+	
+	public Velocidade getVelocidadeExecucao() {
+		return velocidadeExecucao;
 	}
-	public void setVelocidadeExecução(String velocidadeExecução) {
-		this.velocidadeExecução = velocidadeExecução;
+	public void setVelocidadeExecucao(Velocidade velocidadeExecucao) {
+		this.velocidadeExecucao = velocidadeExecucao;
 	}
 	public int getFrequenciaSemanal() {
 		return frequenciaSemanal;

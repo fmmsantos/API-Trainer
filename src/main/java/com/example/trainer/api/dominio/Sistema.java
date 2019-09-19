@@ -25,6 +25,7 @@ public enum Sistema {
 	FST7("FST-7"),
 	GVT("GVT");
 	public String nome;
+	
 	@JsonCreator
 	private Sistema(String nome){
 		this.nome=nome;

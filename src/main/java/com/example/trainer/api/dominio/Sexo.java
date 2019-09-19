@@ -17,11 +17,6 @@ public enum Sexo {
 		 this.sexo = sexo;
 		
 	}
-	 
-	
-	 
-
-	
 
 	public String getSexo() {
 		

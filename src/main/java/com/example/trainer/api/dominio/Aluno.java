@@ -79,13 +79,7 @@ public class Aluno {
 		return sexo;
 	}
 	public void setSexo(Sexo sexo) {
-		if(this.sexo == sexo.FEMININO)	{
-			sexo.valueOf("F");
-		}
-		if(this.sexo == sexo.MASCULINO) {
-			sexo.valueOf("M");
-		}
-		this.sexo = sexo;
+		
 		
 	}
 	@Override

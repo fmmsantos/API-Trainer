@@ -8,6 +8,7 @@ public enum Metodo {
 	DIREC("Direcionado por grupamento Muscular");
 	
 	private String nome;
+	
 	Metodo(String nome){
 		this.nome = nome;
 	}

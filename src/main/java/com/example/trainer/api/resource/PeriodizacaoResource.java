@@ -33,7 +33,6 @@ public class PeriodizacaoResource {
 		return periodos;
 		}
 	
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<Periodizacao> buscarId(@PathVariable Long id) {
 		 if (id == null) {
@@ -46,8 +45,9 @@ public class PeriodizacaoResource {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public void salvar(@RequestBody @Valid Periodizacao periodo ) {
+	public ResponseEntity<String> salvar(@RequestBody @Valid Periodizacao periodo ) {
 		periotizacaoRepo.save(periodo);
+		return ResponseEntity.ok("Periodização salva com sucesso");
 		
 	}
 

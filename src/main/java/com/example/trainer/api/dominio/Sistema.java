@@ -26,12 +26,9 @@ public enum Sistema {
 	GVT("GVT");
 	public String nome;
 	
-	@JsonCreator
-	private Sistema(String nome){
-		this.nome=nome;
-		
 	
-		
+	private Sistema(String nome){
+		this.nome=nome;	
 	}
 	public String getNome() {
 		return nome;

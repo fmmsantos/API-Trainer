@@ -11,7 +11,6 @@ public enum Velocidade {
 		return velocidade;
 		}
 	
-	
 	Velocidade(String velocidade){
 		this.velocidade = velocidade;
 	}

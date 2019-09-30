@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.example.trainer.api.dominio.Periodizacao;
 @Repository
 public interface PeriotizacaoRepository extends JpaRepository<Periodizacao,  Long> {
+	Periodizacao findByCodigo(Long codigo);
 	
 
 }

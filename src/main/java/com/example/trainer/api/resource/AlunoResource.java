@@ -26,6 +26,7 @@ import com.example.trainer.api.dominio.Aluno;
 
 import com.example.trainer.api.exception.NotFoundException;
 import com.example.trainer.api.repository.AlunoRepository;
+import com.example.trainer.api.service.AlunoService;
 
 @RestController
 @RequestMapping("/alunos")
@@ -34,53 +35,52 @@ public class AlunoResource {
 	@Autowired
 	private AlunoRepository alunoRepositori;
 	
+	@Autowired
+	private AlunoService alunoService;
+	
 	@GetMapping
 	public List<Aluno> buscarTodos(){
 		List<Aluno> alunos = alunoRepositori.findAll();
 		return alunos;
 	}
+	
+	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void salvar( @Valid @RequestBody Aluno aluno,HttpServletResponse response) {
-	
-	
 	Aluno alunoSalvo = alunoRepositori.save(aluno);
-
-	URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
 			.buildAndExpand(alunoSalvo.getCodigo()).toUri();
 	response.setHeader("Location", uri.toASCIIString());
-	
-	
 	}
+	
+	
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity buscarCodigo(@PathVariable Long codigo) {
 	return this.alunoRepositori.findById(codigo).map(aluno -> ResponseEntity.ok(aluno))
 			.orElse(ResponseEntity.notFound().build());
-	/*
-	 *  Optional aluno = this.categoriaRepository.findById(codigo);
-    return aluno.isPresent() ? 
-            ResponseEntity.ok(aluno.get()) : ResponseEntity.notFound().build();
-}*/
-	
 	}
+	
+	
 	@DeleteMapping("/{codigo}")
 	// para responder que o code é 204
 	@ResponseStatus( HttpStatus.NO_CONTENT)
 	public void deletarAluno(@PathVariable Long codigo) {
 		this.alunoRepositori.deleteById(codigo);
-		
 	}
+	
+	
 	@PutMapping("/{codigo}")
 	public ResponseEntity<Aluno> atualizar(@PathVariable Long codigo,@Valid @RequestBody Aluno aluno) {
-		
-        Aluno p = alunoRepositori.findByCodigo(codigo);
-        if (p == null) {
-        	throw new NotFoundException("Aluno nao encontrado com o codigo: " + codigo); 
-        }
-          aluno.setCodigo(codigo);
+		Aluno alunoSalvo = alunoService.atualizarAluno(codigo);
+	//	Aluno p = alunoRepositori.findByCodigo(codigo);
+   //     if (p == null) {
+      //  	throw new NotFoundException("Aluno nao encontrado com o codigo: " + codigo); 
+     //   }
+        //  aluno.setCodigo(codigo);
         
-        alunoRepositori.save(aluno);
+      //  alunoRepositori.save(aluno);
       
         return ResponseEntity.ok(aluno);
 	}
